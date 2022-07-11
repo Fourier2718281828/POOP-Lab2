@@ -32,7 +32,8 @@ public:
     inline void deselect_tool();
     inline void scale(const qreal);
     inline void clear();
-    inline void save(const QFile&);
+    inline void save(const QString&);
+    inline void load(const QString&);
 private:
     void evaluateMouseDisplacement(QMouseEvent* event);
     void do_drawings();
@@ -55,6 +56,8 @@ private:
     QLine* _mouseDisplacementVector;
     qreal _scale;
     bool _phantomDrawingMode;
+private:
+    static const QSize DEFAULT_SIZE;
 };
 
 inline void Graphics::select_tool(const Tool tool)
@@ -69,18 +72,33 @@ inline void Graphics::deselect_tool()
 
 inline void Graphics::scale(const qreal factor)
 {
+    //_canvas = _canvas.scaled(factor * _canvas.size(), Qt::KeepAspectRatio);
+    //setFixedSize(_canvas.size());
     setFixedSize(factor * size());
     _scale *= factor;
+    //update();
 }
 
 inline void Graphics::clear()
 {
-    reset();
+    _canvas.fill(Qt::white);
+    delete _phantomCanvas; _phantomCanvas = nullptr;
+    delete _mouseStepVector; _mouseStepVector = nullptr;
+    delete _mouseDisplacementVector; _mouseDisplacementVector = nullptr;
+    _phantomDrawingMode = false;
     update();
 }
 
-inline void Graphics::save(const QFile& file)
+inline void Graphics::save(const QString& path)
 {
+    _canvas.save(path);
+}
 
+inline void Graphics::load(const QString& path)
+{
+    reset();
+    _canvas.load(path);
+    setFixedSize(_canvas.size());
+    update();
 }
 #endif // GRAPHICS_H

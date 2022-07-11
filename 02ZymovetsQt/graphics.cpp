@@ -4,10 +4,12 @@
 
 using Tool = Graphics::Tool;
 
+const QSize Graphics::DEFAULT_SIZE(2000, 850);
+
 Graphics::Graphics(QWidget *parent)
     : QWidget{parent},
       _selectedTool(Tool::NONE),
-      _canvas(size(), QImage::Format_RGB32),
+      _canvas(DEFAULT_SIZE, QImage::Format_RGB32),
       _phantomCanvas(nullptr),
       _painter(),
       _mouseStepVector(nullptr),
@@ -16,6 +18,8 @@ Graphics::Graphics(QWidget *parent)
       _phantomDrawingMode(false)
 {
     _canvas.fill(Qt::white);
+    setFixedSize(_canvas.size());
+    //_painter.setPen(QPen(QBrush(Qt::black),10));
 }
 
 Graphics::~Graphics()
@@ -73,7 +77,7 @@ void Graphics::evaluateMouseDisplacement(QMouseEvent* event)
     if(_mouseStepVector)
         _mouseStepVector->setPoints(_mouseStepVector->p2(), event->pos() / _scale);
     else
-        _mouseStepVector = new QLine(event->pos() / _scale, event->pos() / _scale);
+        _mouseStepVector = new QLine(event->pos()/ _scale, event->pos() / _scale);
 
     if(_mouseDisplacementVector)
         _mouseDisplacementVector->setPoints(_mouseDisplacementVector->p1(), event->pos() / _scale);
@@ -153,6 +157,7 @@ void Graphics::depict_canvas(const QImage& canvas)
 {
     _painter.begin(this);
     _painter.drawImage(rect(), canvas);
+    //_painter.drawImage(canvas.rect(), canvas);
     _painter.end();
 }
 
@@ -175,6 +180,8 @@ void Graphics::set_phantom_mode(bool phantomMode)
 
 void Graphics::reset()
 {
+    scale(1 / _scale);
+    _canvas = QImage(DEFAULT_SIZE, QImage::Format_RGB32);
     _canvas.fill(Qt::white);
     delete _phantomCanvas; _phantomCanvas = nullptr;
     delete _mouseStepVector; _mouseStepVector = nullptr;

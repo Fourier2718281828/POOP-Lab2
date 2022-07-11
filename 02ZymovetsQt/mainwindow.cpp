@@ -1,39 +1,39 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QLayout>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 using Tool = Graphics::Tool;
 
 const qreal MainWindow::ZOOM_SCALE_FACTOR = 2.0;
 const qint32 MainWindow::MAX_GRAPHICS_LOGSCALE = 3;
 const qint32 MainWindow::MIN_GRAPHICS_LOGSCALE = -3;
+const QString MainWindow::FILE_FILTERS = "PNG File (*.png);; JPG File (*.jpg)";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      _graphics(new Graphics(/*centralWidget()*/)),
+      _graphics(new Graphics(centralWidget())),
       _checkedAction(nullptr),
-      _graphicsLogScale(0)
+      _graphicsLogScale(0),
+      _hasBeenSaved(false),
+      _savedPath(nullptr)
 {
     ui->setupUi(this);
     _graphics->setFixedSize(_graphics->size());
     QScrollArea* scrollArea = centralWidget()->findChildren<QScrollArea*>("scrollArea").first();
     scrollArea->setWidget(_graphics);
-    //_graphics->setFixedSize(_graphics->size());
-    connect_all_actions_to_tools();
+    connect_all_actions_to_slots();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    ui = nullptr;
+    delete _savedPath;
+    _savedPath = nullptr;
 }
-/*
-void MainWindow::scale_graphics(const float factor)
-{
-    const QSize newSize = factor * _graphics->size();
-    _graphics->setFixedSize(newSize);
-}
-*/
 
 bool MainWindow::increment_graphics_scale()
 {
@@ -43,7 +43,6 @@ bool MainWindow::increment_graphics_scale()
     }
 
     ++_graphicsLogScale;
-    //scale_graphics(ZOOM_SCALE_FACTOR);
     _graphics->scale(ZOOM_SCALE_FACTOR);
     return true;
 }
@@ -56,12 +55,11 @@ bool MainWindow::decrement_graphics_scale()
     }
 
     --_graphicsLogScale;
-    //scale_graphics(1 / ZOOM_SCALE_FACTOR);
     _graphics->scale(1 / ZOOM_SCALE_FACTOR);
     return true;
 }
 
-void MainWindow::connect_all_actions_to_tools()
+void MainWindow::connect_all_actions_to_slots()
 {
     connect_action_to_tool(ui->actionDraw, Tool::PENCIL);
     connect_action_to_tool(ui->actionCircle, Tool::CIRCLE);
@@ -79,6 +77,50 @@ void MainWindow::connect_all_actions_to_tools()
 
     connect(ui->actionClear, &QAction::triggered,
             _graphics, &Graphics::clear);
+
+
+    connect(ui->actionSave, &QAction::triggered, this, &MainWindow::save_graphics);
+    connect(ui->actionSave_as, &QAction::triggered, this, &MainWindow::save_as_graphics);
+    connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::load_graphics);
+}
+
+void MainWindow::save_graphics()
+{
+    if(_hasBeenSaved && QFile(*_savedPath).exists())
+        _graphics->save(*_savedPath);
+    else
+        save_as_graphics();
+}
+
+void MainWindow::save_as_graphics()
+{
+    QString filename = QFileDialog::getSaveFileName
+            (
+                this,
+                "Save a file",
+                QStandardPaths::writableLocation(QStandardPaths::DesktopLocation),
+                FILE_FILTERS
+            );
+    if(filename.isEmpty()) return;
+    _graphics->save(filename);
+    _hasBeenSaved = true;
+    _savedPath = new QString(std::move(filename));
+}
+
+void MainWindow::load_graphics()
+{
+    QString filename = QFileDialog::getOpenFileName
+            (
+                this,
+                "Open a file",
+                QStandardPaths::writableLocation(QStandardPaths::DesktopLocation),
+                FILE_FILTERS
+            );
+    if(filename.isEmpty()) return;
+    _graphics->load(filename);
+    _graphicsLogScale = 0;
+    _hasBeenSaved = true;
+    _savedPath = new QString(std::move(filename));
 }
 
 void MainWindow::connect_action_to_tool(QAction* action, const Tool tool)
