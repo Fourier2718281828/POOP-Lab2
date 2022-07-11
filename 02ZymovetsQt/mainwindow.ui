@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_as"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionInstruction"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionZoom_in"/>
+    <addaction name="actionZoom_out"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <widget class="QMenu" name="menuFigure">
+     <property name="title">
+      <string>Shape</string>
+     </property>
+     <addaction name="actionLine"/>
+     <addaction name="actionTriangle"/>
+     <addaction name="actionRhombus"/>
+     <addaction name="actionRectangle"/>
+     <addaction name="actionPolygon"/>
+     <addaction name="actionCircle"/>
+     <addaction name="actionEllipse"/>
+    </widget>
+    <addaction name="menuFigure"/>
+    <addaction name="actionDraw"/>
+    <addaction name="actionChoose_Colour"/>
+    <addaction name="actionClear"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDraw"/>
+   <addaction name="actionChoose_Colour"/>
+   <addaction name="actionClear"/>
+   <addaction name="separator"/>
+   <addaction name="actionLine"/>
+   <addaction name="actionTriangle"/>
+   <addaction name="actionRectangle"/>
+   <addaction name="actionRhombus"/>
+   <addaction name="actionPolygon"/>
+   <addaction name="actionCircle"/>
+   <addaction name="actionEllipse"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSave"/>
+   <addaction name="actionSave_as"/>
+   <addaction name="separator"/>
+   <addaction name="actionZoom_in"/>
+   <addaction name="actionZoom_out"/>
+   <addaction name="separator"/>
+   <addaction name="actionInstruction"/>
+   <addaction name="actionExit"/>
+  </widget>
+  <action name="actionSave">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-сохранить-32.png</normaloff>:/icons/icons/icons8-сохранить-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-импортировать-32.png</normaloff>:/icons/icons/icons8-импортировать-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionInstruction">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-помощь-32.png</normaloff>:/icons/icons/icons8-помощь-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Instruction</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-новый-файл-32.png</normaloff>:/icons/icons/icons8-новый-файл-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-exit-32.png</normaloff>:/icons/icons/icons8-exit-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionZoom_in">
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-zoom-in-32.png</normaloff>:/icons/icons/icons8-zoom-in-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom-in</string>
+   </property>
+  </action>
+  <action name="actionZoom_out">
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-zoom-out-32.png</normaloff>:/icons/icons/icons8-zoom-out-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom-out</string>
+   </property>
+  </action>
+  <action name="actionSave_as">
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-сохранить-как-32.png</normaloff>:/icons/icons/icons8-сохранить-как-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save as</string>
+   </property>
+  </action>
+  <action name="actionLine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-линия-32.png</normaloff>:/icons/icons/icons8-линия-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Line</string>
+   </property>
+  </action>
+  <action name="actionCircle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-круг-32.png</normaloff>:/icons/icons/icons8-круг-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Circle</string>
+   </property>
+  </action>
+  <action name="actionEllipse">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-эллипс-32.png</normaloff>:/icons/icons/icons8-эллипс-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ellipse</string>
+   </property>
+  </action>
+  <action name="actionTriangle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-треугольник-32.png</normaloff>:/icons/icons/icons8-треугольник-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Triangle</string>
+   </property>
+  </action>
+  <action name="actionPolygon">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-многоугольник-32.png</normaloff>:/icons/icons/icons8-многоугольник-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Polygon</string>
+   </property>
+  </action>
+  <action name="actionRectangle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-прямоугольник-32.png</normaloff>:/icons/icons/icons8-прямоугольник-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rectangle</string>
+   </property>
+  </action>
+  <action name="actionRhombus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-ромб-32.png</normaloff>:/icons/icons/icons8-ромб-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rhombus</string>
+   </property>
+  </action>
+  <action name="actionDraw">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-draw-32.png</normaloff>:/icons/icons/icons8-draw-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Draw</string>
+   </property>
+  </action>
+  <action name="actionChoose_Colour">
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-colour-32.png</normaloff>:/icons/icons/icons8-colour-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Choose Colour</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/icons/icons/icons8-очистить-корзину-32.png</normaloff>:/icons/icons/icons8-очистить-корзину-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="design.qrc"/>
+ </resources>
+ <connections/>
+</ui>

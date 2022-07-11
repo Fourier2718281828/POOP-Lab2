@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/icons8-draw-32.png</file>
+        <file>icons/icons8-exit-32.png</file>
+        <file>icons/icons8-zoom-in-32.png</file>
+        <file>icons/icons8-zoom-out-32.png</file>
+        <file>icons/icons8-импортировать-32.png</file>
+        <file>icons/icons8-круг-32.png</file>
+        <file>icons/icons8-линия-32.png</file>
+        <file>icons/icons8-многоугольник-32.png</file>
+        <file>icons/icons8-новый-файл-32.png</file>
+        <file>icons/icons8-очистить-корзину-32.png</file>
+        <file>icons/icons8-помощь-32.png</file>
+        <file>icons/icons8-прямоугольник-32.png</file>
+        <file>icons/icons8-ромб-32.png</file>
+        <file>icons/icons8-сохранить-32.png</file>
+        <file>icons/icons8-треугольник-32.png</file>
+        <file>icons/icons8-эллипс-32.png</file>
+        <file>icons/icons8-сохранить-как-32.png</file>
+        <file>icons/icons8-colour-32.png</file>
+        <file>icons/icons8-shape-32.png</file>
+    </qresource>
+</RCC>
