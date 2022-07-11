@@ -2,27 +2,63 @@
 #include "ui_mainwindow.h"
 #include <QLayout>
 
-
-#include <QDebug>
-
 using Tool = Graphics::Tool;
+
+const qreal MainWindow::ZOOM_SCALE_FACTOR = 2.0;
+const qint32 MainWindow::MAX_GRAPHICS_LOGSCALE = 3;
+const qint32 MainWindow::MIN_GRAPHICS_LOGSCALE = -3;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      _graphics(new Graphics(centralWidget())),
-      _checkedAction(nullptr)
+      _graphics(new Graphics(/*centralWidget()*/)),
+      _checkedAction(nullptr),
+      _graphicsLogScale(0)
 {
     ui->setupUi(this);
-
-    qDebug() << (centralWidget()->layout() == nullptr);
-    centralWidget()->layout()->addWidget(_graphics);
+    _graphics->setFixedSize(_graphics->size());
+    QScrollArea* scrollArea = centralWidget()->findChildren<QScrollArea*>("scrollArea").first();
+    scrollArea->setWidget(_graphics);
+    //_graphics->setFixedSize(_graphics->size());
     connect_all_actions_to_tools();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+/*
+void MainWindow::scale_graphics(const float factor)
+{
+    const QSize newSize = factor * _graphics->size();
+    _graphics->setFixedSize(newSize);
+}
+*/
+
+bool MainWindow::increment_graphics_scale()
+{
+    if(_graphicsLogScale == MAX_GRAPHICS_LOGSCALE)
+    {
+        return false;
+    }
+
+    ++_graphicsLogScale;
+    //scale_graphics(ZOOM_SCALE_FACTOR);
+    _graphics->scale(ZOOM_SCALE_FACTOR);
+    return true;
+}
+
+bool MainWindow::decrement_graphics_scale()
+{
+    if(_graphicsLogScale == MIN_GRAPHICS_LOGSCALE)
+    {
+        return false;
+    }
+
+    --_graphicsLogScale;
+    //scale_graphics(1 / ZOOM_SCALE_FACTOR);
+    _graphics->scale(1 / ZOOM_SCALE_FACTOR);
+    return true;
 }
 
 void MainWindow::connect_all_actions_to_tools()
@@ -35,6 +71,14 @@ void MainWindow::connect_all_actions_to_tools()
     connect_action_to_tool(ui->actionRectangle, Tool::RECTANGLE);
     connect_action_to_tool(ui->actionRhombus, Tool::RHOMBUS);
     connect_action_to_tool(ui->actionTriangle, Tool::TRIANGLE);
+
+    connect(ui->actionZoom_in, &QAction::triggered,
+            this, &MainWindow::increment_graphics_scale);
+    connect(ui->actionZoom_out, &QAction::triggered,
+            this, &MainWindow::decrement_graphics_scale);
+
+    connect(ui->actionClear, &QAction::triggered,
+            _graphics, &Graphics::clear);
 }
 
 void MainWindow::connect_action_to_tool(QAction* action, const Tool tool)
@@ -61,15 +105,3 @@ void MainWindow::connect_action_to_tool(QAction* action, const Tool tool)
 
     connect(action, &QAction::triggered, _graphics, _slot);
 }
-
-/*void MainWindow::set_actions_checkable()
-{
-    ui->actionCircle->setCheckable(true);
-    ui->actionDraw->setCheckable(true);
-    ui->actionEllipse->setCheckable(true);
-    ui->actionLine->setCheckable(true);
-    ui->actionPolygon->setCheckable(true);
-    ui->actionRectangle->setCheckable(true);
-    ui->actionRhombus->setCheckable(true);
-    ui->actionTriangle->setCheckable(true);
-}*/

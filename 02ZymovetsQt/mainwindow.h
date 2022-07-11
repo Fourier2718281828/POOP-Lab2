@@ -19,12 +19,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private:
+    //void scale_graphics(const float);
+    bool increment_graphics_scale();
+    bool decrement_graphics_scale();
     void connect_action_to_tool(QAction*, const Graphics::Tool);
     void connect_all_actions_to_tools();
 private:
     Ui::MainWindow *ui;
     Graphics* _graphics;
-
     QAction* _checkedAction;
+    qint32 _graphicsLogScale;
+private:
+    static const qreal ZOOM_SCALE_FACTOR;
+    static const qint32 MAX_GRAPHICS_LOGSCALE;
+    static const qint32 MIN_GRAPHICS_LOGSCALE;
 };
 #endif // MAINWINDOW_H
