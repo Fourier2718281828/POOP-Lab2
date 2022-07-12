@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QAction>
 #include "graphics.h"
+#include "InstructionShower.h"
 
 #include<QPainter>
 
@@ -26,6 +27,11 @@ private:
     void save_graphics();
     void save_as_graphics();
     void load_graphics();
+    void show_instruction();
+    void change_pen_size();
+private:
+    virtual void dragEnterEvent(QDragEnterEvent *event) override;
+    virtual void dropEvent(QDropEvent *event) override;
 private:
     Ui::MainWindow *ui;
     Graphics* _graphics;
@@ -33,6 +39,7 @@ private:
     qint32 _graphicsLogScale;
     bool _hasBeenSaved;
     QString* _savedPath;
+    InstructionShower* shower;
 private:
     static const qreal ZOOM_SCALE_FACTOR;
     static const qint32 MAX_GRAPHICS_LOGSCALE;

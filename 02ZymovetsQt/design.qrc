@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/icons">
+    <qresource prefix="/resourses">
         <file>icons/icons8-draw-32.png</file>
         <file>icons/icons8-exit-32.png</file>
         <file>icons/icons8-zoom-in-32.png</file>
@@ -19,5 +19,15 @@
         <file>icons/icons8-сохранить-как-32.png</file>
         <file>icons/icons8-colour-32.png</file>
         <file>icons/icons8-shape-32.png</file>
+        <file>icons/icons8-изменение-размера-четырех-направлений-32.png</file>
+        <file>icons/pencil.png</file>
+        <file>icons/icons8-перо-32.png</file>
+        <file>Instruction/help.html</file>
+        <file>Instruction/image.png</file>
+        <file>Instruction/image2.png</file>
+        <file>Instruction/image3.png</file>
+        <file>Instruction/image4.png</file>
+        <file>Instruction/image5.png</file>
+        <file>Instruction/image6.png</file>
     </qresource>
 </RCC>
