@@ -91,6 +91,7 @@ void Graphics::do_drawings()
 
     _painter.begin(&_canvas);
     _painter.setPen(QPen(_currentPenColor, _penSize));
+
     switch(_selectedTool)
     {
     case Tool::NONE:
@@ -110,6 +111,12 @@ void Graphics::do_drawings()
     case Tool::CIRCLE:
         break;
     case Tool::ELLIPSE:
+        break;
+    case Graphics::Tool::ERASER:
+        _painter.setPen(QPen(Qt::white, _penSize));
+        if(_mouseStepVector)
+            _painter.drawEllipse(QPointF(_mouseStepVector->p2()), 2*_penSize, 2*_penSize);
+        _painter.setPen(QPen(_currentPenColor, _penSize));
         break;
     }
 
@@ -173,6 +180,8 @@ void Graphics::do_phantom_drawings()
     case Tool::ELLIPSE:
         _painter.drawEllipse(rect);
         break;
+    case Graphics::Tool::ERASER:
+        break;
     }
     delete[] rectSideCentres; rectSideCentres = nullptr;
     _painter.end();
@@ -187,7 +196,8 @@ void Graphics::depict_canvas(const QImage& canvas)
 
 bool Graphics::is_phantom_tool_equiped()
 {
-    return _selectedTool != Tool::NONE && _selectedTool != Tool::PENCIL;
+    return _selectedTool != Tool::NONE && _selectedTool != Tool::PENCIL &&
+            _selectedTool != Tool::ERASER;
 }
 
 void Graphics::set_phantom_mode(bool phantomMode)

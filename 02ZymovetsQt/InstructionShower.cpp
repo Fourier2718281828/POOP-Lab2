@@ -1,6 +1,7 @@
 #include "InstructionShower.h"
 #include <QTextBrowser>
 #include <QVBoxLayout>
+#include <QIcon>
 
 InstructionShower::InstructionShower
 (
@@ -11,6 +12,7 @@ InstructionShower::InstructionShower
     : QWidget(parent),
       _textBrowser(new QTextBrowser)
 {
+    setWindowIcon(QIcon(":/resourses/icons/icons8-помощь-32.png"));
     setWindowTitle("Instruction");
     resize(500, 500);
     _textBrowser->setSearchPaths(QStringList() << path);

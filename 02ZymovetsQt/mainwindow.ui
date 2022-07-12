@@ -92,6 +92,7 @@
     <addaction name="actionChoose_Colour"/>
     <addaction name="actionClear"/>
     <addaction name="actionPen_Size"/>
+    <addaction name="actionEraser"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -112,6 +113,7 @@
    <addaction name="actionDraw"/>
    <addaction name="actionPen_Size"/>
    <addaction name="actionChoose_Colour"/>
+   <addaction name="actionEraser"/>
    <addaction name="actionClear"/>
    <addaction name="separator"/>
    <addaction name="actionLine"/>
@@ -331,6 +333,18 @@
    </property>
    <property name="text">
     <string>Pen Size</string>
+   </property>
+  </action>
+  <action name="actionEraser">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="design.qrc">
+     <normaloff>:/resourses/icons/icons8-ластик-32.png</normaloff>:/resourses/icons/icons8-ластик-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Eraser</string>
    </property>
   </action>
  </widget>

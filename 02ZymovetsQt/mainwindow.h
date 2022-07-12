@@ -1,12 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QAction>
 #include "graphics.h"
 #include "InstructionShower.h"
-
+#include <QMainWindow>
+#include <QAction>
 #include<QPainter>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -45,5 +45,7 @@ private:
     static const qint32 MAX_GRAPHICS_LOGSCALE;
     static const qint32 MIN_GRAPHICS_LOGSCALE;
     static const QString FILE_FILTERS;
+    static const QString INSTRUCTION_FOLDER;
+    static const QString INSTRUCTION_FILENAME;
 };
 #endif // MAINWINDOW_H

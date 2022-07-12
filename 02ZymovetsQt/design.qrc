@@ -29,5 +29,6 @@
         <file>Instruction/image4.png</file>
         <file>Instruction/image5.png</file>
         <file>Instruction/image6.png</file>
+        <file>icons/icons8-ластик-32.png</file>
     </qresource>
 </RCC>

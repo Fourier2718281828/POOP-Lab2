@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "InstructionShower.h"
 #include <QLayout>
 #include <QFileDialog>
 #include <QStandardPaths>
@@ -9,7 +10,6 @@
 #include <QMimeData>
 #include <QScrollArea>
 #include <QInputDialog>
-#include "InstructionShower.h"
 
 using Tool = Graphics::Tool;
 
@@ -17,6 +17,8 @@ const qreal MainWindow::ZOOM_SCALE_FACTOR = 2.0;
 const qint32 MainWindow::MAX_GRAPHICS_LOGSCALE = 3;
 const qint32 MainWindow::MIN_GRAPHICS_LOGSCALE = -3;
 const QString MainWindow::FILE_FILTERS = "PNG File (*.png);; JPG File (*.jpg)";
+const QString MainWindow::INSTRUCTION_FOLDER = "../02ZymovetsQt/Instruction";
+const QString MainWindow::INSTRUCTION_FILENAME = "help.html";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -26,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
       _graphicsLogScale(0),
       _hasBeenSaved(false),
       _savedPath(nullptr),
-      shower(new InstructionShower("../02ZymovetsQt/Instruction", "help.html"))
+      shower(new InstructionShower(INSTRUCTION_FOLDER, INSTRUCTION_FILENAME))
 {
     ui->setupUi(this);
 
@@ -82,6 +84,7 @@ void MainWindow::connect_all_actions_to_slots()
     connect_action_to_tool(ui->actionRectangle, Tool::RECTANGLE);
     connect_action_to_tool(ui->actionRhombus, Tool::RHOMBUS);
     connect_action_to_tool(ui->actionTriangle, Tool::TRIANGLE);
+    connect_action_to_tool(ui->actionEraser, Tool::ERASER);
 
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::close);
 
@@ -161,7 +164,7 @@ void MainWindow::load_graphics()
 void MainWindow::show_instruction()
 {
     delete shower;
-    shower = new InstructionShower("../02ZymovetsQt/Instruction", "help.html");
+    shower = new InstructionShower(INSTRUCTION_FOLDER, INSTRUCTION_FILENAME);
     shower->show();
 }
 

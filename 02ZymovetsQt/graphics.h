@@ -21,6 +21,7 @@ public:
         RHOMBUS,
         CIRCLE,
         ELLIPSE,
+        ERASER,
     };
 
 public:
